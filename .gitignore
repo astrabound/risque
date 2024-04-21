@@ -8,3 +8,9 @@ __pycache__/
 
 # IDE config
 .vscode/
+
+# Local sandbox
+__sandbox__/
+
+# Distributions and builds
+dist/
