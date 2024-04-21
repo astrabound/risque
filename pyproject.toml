@@ -6,6 +6,6 @@ build-backend = "flit_core.buildapi"
 name = "risque"
 authors = [{name = "Sarthak Gambhir", email = "sarthak.gambhir@outlook.com"}]
 readme = "readme.md"
-license = {file = "LICENSE"}
+license = {file = "LICENSE.txt"}
 classifiers = ["License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)"]
 dynamic = ["version", "description"]
