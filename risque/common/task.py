@@ -23,3 +23,6 @@ class Task(TaskInterface):
             "data": self.data,
             "client_id": self.client_id,
         }
+
+    def __repr__(self) -> str:
+        return f"<Task kind:{self.kind} client:{self.client_id} id:{self.id}>"

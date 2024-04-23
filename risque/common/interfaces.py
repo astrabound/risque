@@ -25,10 +25,11 @@ class TaskManagerInterface(abc.ABC):
     tasks: Dict[str, Deque]
 
     @abc.abstractmethod
-    def add_task(self, task_request: TaskInterface = None):
+    def add_task(self, task: TaskInterface = None) -> None:
         pass
 
-    def __repr__(self) -> str:
+    @abc.abstractmethod
+    def remove_task_by_client_id(self, client_id: str = None) -> None:
         pass
 
 
@@ -47,7 +48,7 @@ class RisqueServerInterface(abc.ABC):
         pass
 
     @abc.abstractmethod
-    def run(self):
+    def run(self) -> None:
         pass
 
 
@@ -57,5 +58,5 @@ class RisqueClientInterface(abc.ABC):
     io: socketio.SimpleClient
 
     @abc.abstractmethod
-    def queue_task(self, task_request: TaskInterface = None):
+    def queue_task(self, task_request: TaskInterface = None) -> None:
         pass

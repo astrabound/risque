@@ -9,9 +9,21 @@ def on_connect(
     auth: Any = None,
     server: RisqueServerInterface = None,
 ):
+    """
+    On connect, log client details.
+    """
+    print("New client connected:", sid)
 
-    print(sid)
-    print(server)
+
+def on_disconnect(
+    sid: str = None,
+    server: RisqueServerInterface = None,
+):
+    """
+    On disconnect remove all tasks by this client.
+    """
+    print("Client disconnected! Removing tasks queued by:", sid)
+    server.task_manager.remove_task_by_client_id(client_id=sid)
 
 
 def on_queue_task(
@@ -19,11 +31,18 @@ def on_queue_task(
     data: Any = None,
     server: RisqueServerInterface = None,
 ):
+    task = Task(
+        data=data.get("data"),
+        kind=data.get("kind"),
+        client_id=sid,
+    )
 
-    server.task_manager.add_task(Task(**data))
+    print("Client:", sid, "requested to queue task:", task)
+    server.task_manager.add_task(task=task)
 
 
 server_event_handlers = {
     "connect": on_connect,
+    "disconnect": on_disconnect,
     "queue_task": on_queue_task,
 }

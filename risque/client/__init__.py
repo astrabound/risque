@@ -20,7 +20,7 @@ class RisqueClient(RisqueClientInterface, metaclass=SingletonMeta):
 
         self.io.connect(f"http://{self.host}:{self.port}")
 
-    def queue_task(self, task_request: TaskInterface = None):
+    def queue_task(self, task_request: TaskInterface = None) -> None:
         self.io.call(
             "queue_task",
             task_request.to_dict()
