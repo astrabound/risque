@@ -27,6 +27,26 @@ class TaskManager(TaskManagerInterface):
                 )
             )
 
+    def get_task(
+        self,
+        client_id: str = None,
+        kind: str = None
+    ) -> TaskInterface:
+        pending_task = None
+
+        for task_kind, task_deque in self.tasks.items():
+            if kind is not None and task_kind != kind:
+                continue
+
+            for i, task in enumerate(task_deque):
+                if task.is_running or task.client_id != client_id:
+                    continue
+
+                self.tasks[task_kind][i].is_running = True
+                pending_task = task
+
+        return pending_task
+
     def __repr__(self) -> str:
         task_count = sum(map(
             len,

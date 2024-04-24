@@ -28,7 +28,7 @@ def on_disconnect(
 
 def on_queue_task(
     sid: str = None,
-    data: Any = None,
+    data: Dict = None,
     server: RisqueServerInterface = None,
 ):
     task = Task(
@@ -41,8 +41,23 @@ def on_queue_task(
     server.task_manager.add_task(task=task)
 
 
+def on_fetch_task(
+    sid: str = None,
+    data: Dict = None,
+    server: RisqueServerInterface = None,
+):
+    task_kind = data.get("kind")
+    print("Client:", sid, "requested to fetch task by kind:", task_kind)
+    task: Task = server.task_manager.get_task(
+        client_id=sid,
+        kind=task_kind
+    )
+    return task.to_dict()
+
+
 server_event_handlers = {
     "connect": on_connect,
     "disconnect": on_disconnect,
     "queue_task": on_queue_task,
+    "fetch_task": on_fetch_task,
 }

@@ -15,6 +15,7 @@ class TaskInterface(abc.ABC):
     client_id: str
     kind: str
     data: Dict
+    is_running: bool = False
 
     @abc.abstractmethod
     def to_dict(self) -> Dict:
@@ -22,7 +23,7 @@ class TaskInterface(abc.ABC):
 
 
 class TaskManagerInterface(abc.ABC):
-    tasks: Dict[str, Deque]
+    tasks: Dict[str, Deque[TaskInterface]]
 
     @abc.abstractmethod
     def add_task(self, task: TaskInterface = None) -> None:
@@ -30,6 +31,14 @@ class TaskManagerInterface(abc.ABC):
 
     @abc.abstractmethod
     def remove_task_by_client_id(self, client_id: str = None) -> None:
+        pass
+
+    @abc.abstractmethod
+    def get_task(
+        self,
+        client_id: str = None,
+        kind: str = None
+    ) -> TaskInterface:
         pass
 
 

@@ -19,9 +19,11 @@ class Task(TaskInterface):
 
     def to_dict(self) -> Dict:
         return {
+            "id": self.id,
             "kind": self.kind,
             "data": self.data,
             "client_id": self.client_id,
+            "is_running": self.is_running,
         }
 
     def __repr__(self) -> str:
