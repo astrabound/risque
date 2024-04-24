@@ -44,6 +44,7 @@ class TaskManager(TaskManagerInterface):
 
                 self.tasks[task_kind][i].is_running = True
                 pending_task = task
+                break
 
         return pending_task
 

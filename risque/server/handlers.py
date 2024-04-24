@@ -52,7 +52,7 @@ def on_fetch_task(
         client_id=sid,
         kind=task_kind
     )
-    return task.to_dict()
+    return None if task is None else task.to_dict()
 
 
 server_event_handlers = {
